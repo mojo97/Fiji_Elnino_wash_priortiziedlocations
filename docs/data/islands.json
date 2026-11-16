@@ -1,0 +1,218 @@
+[
+  {
+    "name": "Viti Levu",
+    "counts": [
+      15,
+      18,
+      130
+    ],
+    "population": 55037
+  },
+  {
+    "name": "Yasawa Group",
+    "counts": [
+      15,
+      2,
+      2
+    ],
+    "population": 2930
+  },
+  {
+    "name": "Vanua Levu",
+    "counts": [
+      4,
+      5,
+      52
+    ],
+    "population": 32951
+  },
+  {
+    "name": "Taveuni",
+    "counts": [
+      4,
+      4,
+      3
+    ],
+    "population": 4975
+  },
+  {
+    "name": "Vanua Balavu",
+    "counts": [
+      3,
+      2,
+      1
+    ],
+    "population": 596
+  },
+  {
+    "name": "Vatulele",
+    "counts": [
+      3,
+      1,
+      0
+    ],
+    "population": 930
+  },
+  {
+    "name": "Malolo (Mamanuca)",
+    "counts": [
+      3,
+      0,
+      1
+    ],
+    "population": 1516
+  },
+  {
+    "name": "Kadavu",
+    "counts": [
+      2,
+      2,
+      26
+    ],
+    "population": 5472
+  },
+  {
+    "name": "Moce",
+    "counts": [
+      2,
+      0,
+      0
+    ],
+    "population": 551
+  },
+  {
+    "name": "Kabara",
+    "counts": [
+      1,
+      5,
+      0
+    ],
+    "population": 728
+  },
+  {
+    "name": "Fulaga",
+    "counts": [
+      1,
+      3,
+      0
+    ],
+    "population": 378
+  },
+  {
+    "name": "Cikobia",
+    "counts": [
+      1,
+      3,
+      0
+    ],
+    "population": 110
+  },
+  {
+    "name": "Batiki",
+    "counts": [
+      1,
+      3,
+      0
+    ],
+    "population": 228
+  },
+  {
+    "name": "Ono (Kadavu)",
+    "counts": [
+      1,
+      1,
+      1
+    ],
+    "population": 456
+  },
+  {
+    "name": "Matuku",
+    "counts": [
+      1,
+      2,
+      0
+    ],
+    "population": 249
+  },
+  {
+    "name": "Ono-i-Lau",
+    "counts": [
+      1,
+      1,
+      0
+    ],
+    "population": 256
+  },
+  {
+    "name": "Totoya",
+    "counts": [
+      1,
+      0,
+      0
+    ],
+    "population": 280
+  },
+  {
+    "name": "Moturiki",
+    "counts": [
+      0,
+      10,
+      0
+    ],
+    "population": 843
+  },
+  {
+    "name": "Beqa",
+    "counts": [
+      0,
+      2,
+      2
+    ],
+    "population": 606
+  },
+  {
+    "name": "Oneata",
+    "counts": [
+      0,
+      2,
+      0
+    ],
+    "population": 92
+  },
+  {
+    "name": "Nayau",
+    "counts": [
+      0,
+      1,
+      0
+    ],
+    "population": 165
+  },
+  {
+    "name": "Laucala/Qamea",
+    "counts": [
+      0,
+      1,
+      0
+    ],
+    "population": 180
+  },
+  {
+    "name": "Lakeba",
+    "counts": [
+      0,
+      0,
+      1
+    ],
+    "population": 169
+  },
+  {
+    "name": "Gau",
+    "counts": [
+      0,
+      0,
+      1
+    ],
+    "population": 335
+  }
+]

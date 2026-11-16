@@ -1,0 +1,38 @@
+name: Refresh WASH evidence
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: wash-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    # Opt in only after reviewed field mappings and secret are configured.
+    if: vars.ENABLE_KOBO_SYNC == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Refresh sanitised snapshot
+        id: sync
+        continue-on-error: true
+        env:
+          KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
+        run: node scripts/run-sync.mjs
+      - name: Commit snapshot, including partial-source status
+        run: |
+          git config user.name 'WASH data sync'
+          git config user.email 'wash-sync@users.noreply.github.com'
+          git add docs/data/assessments.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh sanitised assessment evidence'
+            git push
+          fi
+      - name: Report source failure
+        if: steps.sync.outcome == 'failure'
+        run: exit 1

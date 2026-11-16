@@ -1,0 +1,12 @@
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {validateMethod} from '../docs/core.mjs';
+const dir=new URL('../docs/data/',import.meta.url),read=async f=>JSON.parse(await fs.readFile(new URL(f,dir),'utf8'));
+for(const n of await fs.readdir(dir))if(n.endsWith('.json'))await read(n);
+validateMethod(await read('methodology.json'));
+const islands=await read('islands.json'),sum=i=>islands.reduce((n,r)=>n+r.counts[i],0);
+assert.equal(sum(0),59);assert.equal(sum(0)+sum(1),127);assert.equal(sum(0)+sum(2),279);assert.equal(sum(0)+sum(1)+sum(2),347);
+const rain=await read('rainfall.json');assert.equal(new Set(rain.map(x=>x.PCODE)).size,rain.length);assert.ok(rain.every(x=>Number(x.r3h_avg)>0));
+const html=await fs.readFile(new URL('../docs/index.html',import.meta.url),'utf8');for(const id of ['overview','assessments','baseline','rainfall','methodology','sources'])assert.ok(html.includes(`id="${id}"`));
+const snapshot=await read('assessments.json');assert.ok(Array.isArray(snapshot.records));
+console.log('Validated JSON, method ranges, historical reconciliation (59 / 127 / 279 / 347), rainfall PCODE uniqueness and page sections.');

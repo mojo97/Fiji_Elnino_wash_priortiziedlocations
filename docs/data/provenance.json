@@ -1,0 +1,37 @@
+[
+  {
+    "name": "DWS JMP Analysis_Rural Water & WinS.pdf",
+    "role": "Methods context: rural mapping and school service definitions, 24 November 2022, pp. 8-9 and 14",
+    "limit": "Not a current location-level assessment"
+  },
+  {
+    "name": "Historical community charts (two supplied PNGs)",
+    "role": "Island exposure and historical map, February 2022-January 2023",
+    "limit": "No named community dataset; Rotuma absent from map"
+  },
+  {
+    "name": "fji-rainfall-subnat-full.csv",
+    "role": "29,718 supplied records; latest per 18 PCODEs, 1 November 2026",
+    "limit": "Area rainfall, preliminary latest values; provider metadata and PCODE labels need confirmation"
+  },
+  {
+    "name": "JMP_2025_FJI_Fiji_1.xlsx",
+    "role": "Households national context: 2024 estimates",
+    "limit": "Aggregate estimates; never used as community-specific current impact"
+  },
+  {
+    "name": "JMP_2026_WinS_FJI_Fiji.xlsx",
+    "role": "Schools national context: 2024 estimates",
+    "limit": "Aggregate estimates; never used as community-specific current impact"
+  },
+  {
+    "name": "JMP_2026_WinHCF_FJI_Fiji.xlsx",
+    "role": "Health facilities national context: 2024 estimates",
+    "limit": "Aggregate estimates; never used as community-specific current impact"
+  },
+  {
+    "name": "Kobo assessments: five supplied project/form links",
+    "role": "Incoming current evidence when authenticated and mapped",
+    "limit": "Not connected; no submissions loaded"
+  }
+]

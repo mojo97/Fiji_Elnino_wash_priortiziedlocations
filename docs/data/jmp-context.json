@@ -1,0 +1,29 @@
+[
+  {
+    "label": "Households",
+    "file": "JMP_2025_FJI_Fiji_1.xlsx",
+    "year": 2024,
+    "setting": "Total",
+    "metric": "At least basic drinking water",
+    "value": 95.6,
+    "cell": "F29"
+  },
+  {
+    "label": "Schools",
+    "file": "JMP_2026_WinS_FJI_Fiji.xlsx",
+    "year": 2024,
+    "setting": "Total",
+    "metric": "Basic drinking water",
+    "value": 97.6,
+    "cell": "G28"
+  },
+  {
+    "label": "Health facilities",
+    "file": "JMP_2026_WinHCF_FJI_Fiji.xlsx",
+    "year": 2024,
+    "setting": "Total",
+    "metric": "Basic water service",
+    "value": 69.2,
+    "cell": "G28"
+  }
+]

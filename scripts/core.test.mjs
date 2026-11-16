@@ -1,0 +1,16 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import {classify,validateMethod,latestEntities,longitude} from '../docs/core.mjs';
+import {normalize,aggregateHouseholds,mappedBool} from './sync-kobo.mjs';
+const m=JSON.parse(await fs.readFile(new URL('../docs/data/methodology.json',import.meta.url)));const now=new Date('2026-11-16T00:00:00Z');
+const r={name:'Synthetic community',type:'community',communityKey:'TEST',entityKey:'1',sourceId:'test',observedAt:'2026-11-15',noWater:true,rainwaterMain:false};
+test('fresh no-water overrides score; stale cannot be urgent',()=>{assert.equal(classify(r,m,[],[],now).priority,'Urgent');assert.equal(classify({...r,observedAt:'2022-11-15'},m,[],[],now).priority,'Needs update');});
+test('unknown water availability needs verification; zero is not missing',()=>{assert.equal(classify({...r,noWater:null},m,[],[],now).priority,'Verify data');assert.equal(classify({...r,noWater:false},m,[],[],now).score,0);});
+test('exact baseline and rainfall join only; stale rainfall excluded',()=>{const x={...r,pcode:'FJX',noWater:false,rainwaterMain:true};const rain=[{PCODE:'FJX',date:'2026-11-01',r3h:50,r3h_avg:100}];assert.equal(classify(x,m,rain,[{communityKey:'TEST',historicalNoWater:true}],now).score,60);assert.equal(classify(x,m,[{...rain[0],date:'2020-01-01'}],[],now).score,25);});
+test('method edits change ranking and invalid thresholds are rejected',()=>{const x={...r,noWater:false,rainwaterMain:true};assert.equal(classify(x,m,[],[],now).priority,'Watch');assert.equal(classify(x,{...m,rainwaterWeight:65},[],[],now).priority,'High');assert.throws(()=>validateMethod({...m,mediumThreshold:90}));});
+test('latest entities remain separate across sources and sectors',()=>{const xs=latestEntities([r,{...r,observedAt:'2026-11-16'},{...r,sourceId:'second'},{...r,type:'school'}]);assert.equal(xs.length,3);assert.equal(xs[0].observedAt,'2026-11-16');});
+test('date line wraps west longitudes',()=>{assert.equal(longitude(-179),181);assert.equal(longitude(178),178);});
+const mapping={fields:{communityKey:'c',entityKey:'id',name:'n',observedAt:'d',noWater:'w',rainwaterMain:'r',geopoint:'gps'},noWater:{trueValues:['no'],falseValues:['yes']},rainwaterMain:{trueValues:['rain'],falseValues:['pipe']}};
+test('normalization uses reviewed codes; strips personal fields and household GPS',()=>{const x=normalize({c:'TEST',id:'household-private',n:'Test village',d:'2026-01-01',w:'no',r:'unknown',gps:'-18 178',phone:'secret'},{id:'hh',type:'household'},mapping,{},true);assert.equal(x.noWater,true);assert.equal(x.rainwaterMain,null);assert.equal(x.phone,undefined);assert.equal(x.lat,undefined);assert.notEqual(x.entityKey,'household-private');assert.equal(mappedBool('',mapping.noWater),null);});
+test('household aggregation deduplicates entity; avoids false no-water conclusion',()=>{const a={...r,type:'household',entityKey:'a',noWater:false},b={...a,entityKey:'b',noWater:null};const out=aggregateHouseholds([a,b,{...a,observedAt:'2026-11-16',noWater:true}]);assert.equal(out.reduce((s,x)=>s+x.reportCount,0),2);assert.equal(out.some(x=>x.noWater===true),true);assert.equal(out.some(x=>x.noWater===null),true);assert.equal(out[0].lat,undefined);});
