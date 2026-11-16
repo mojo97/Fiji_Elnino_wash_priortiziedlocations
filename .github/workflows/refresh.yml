@@ -11,7 +11,7 @@ concurrency:
 jobs:
   refresh:
     # Opt in only after reviewed field mappings and secret are configured.
-    if: vars.ENABLE_KOBO_SYNC == 'true'
+    if: vars.ENABLE_KOBO_SYNC == 'true' && github.event.repository.private == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
