@@ -30,8 +30,18 @@
     "limit": "Aggregate estimates; never used as community-specific current impact"
   },
   {
-    "name": "Kobo assessments: five supplied project/form links",
-    "role": "Incoming current evidence when authenticated and mapped",
-    "limit": "Not connected; no submissions loaded"
+    "name": "Five Kobo assessment APIs",
+    "role": "All five source forms loaded and aggregated by Tikina; source counts in API coverage panel",
+    "limit": "Convenience assessment coverage; raw records are not published"
+  },
+  {
+    "name": "Fiji Bureau of Statistics population grid 2026",
+    "role": "Official 100m population estimates summed within Tikina boundaries",
+    "limit": "1.47% of grid population outside boundary polygons; estimates are not affected counts"
+  },
+  {
+    "name": "UNOSAT FJI_Admin_HDX Tikina boundaries",
+    "role": "86 admin-3 polygons; attributed POPGIS / FBOS / PCRAFI",
+    "limit": "Boundary vintage differs from 2026 raster; coastline and naming gaps remain"
   }
 ]

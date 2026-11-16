@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test scripts/core.test.mjs scripts/public-build.test.mjs
+      - run: node --test scripts/core.test.mjs scripts/public-build.test.mjs scripts/tikina.test.mjs
       - run: node scripts/validate.mjs
       - run: node scripts/build-public.mjs
       - uses: actions/configure-pages@v5

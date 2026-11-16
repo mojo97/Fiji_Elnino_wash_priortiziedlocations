@@ -1,1 +1,1 @@
-{"name":"fiji-wash-hotspots","private":true,"type":"module","scripts":{"test":"node --test scripts/core.test.mjs scripts/public-build.test.mjs","validate":"node scripts/validate.mjs","sync":"node scripts/run-sync.mjs"},"engines":{"node":">=22"}}
+{"name":"fiji-wash-hotspots","private":true,"type":"module","scripts":{"test":"node --test scripts/core.test.mjs scripts/public-build.test.mjs scripts/tikina.test.mjs","validate":"node scripts/validate.mjs","sync":"node scripts/run-sync.mjs"},"engines":{"node":">=22"}}

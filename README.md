@@ -1,3 +1,29 @@
+# Active aggregate-only API refresh
+
+The user requested **aggregate data by Tikina only**. The active `.github/workflows/refresh-tikina.yml` reads all five Kobo forms and writes only `docs/data/tikina-evidence.json`. It runs every 15 minutes (subject to GitHub scheduling delays), then builds and redeploys the public site in the same workflow. No cross-repository token is needed. Individual submissions are processed only in memory in this public-safe mode; no household/community record file is written or committed. The separate private-data repository is not required for this aggregate-only route.
+
+The five APIs currently permit the requested reads without an API key. If their permissions change, add KOBO_TOKEN as a GitHub Actions secret. It is never sent to the browser or printed. A failed form read stops publication and preserves the prior snapshot.
+
+Only Tikina/source/date summaries reach the site. No names, phone numbers, email addresses, household codes, GPS, facility names, free-text notes or raw response records are published. Household-member figures are suppressed for groups with fewer than five reports. Each source's fetched counts, latest-record counts and exclusion counts are public for transparency. The site polls the deployed aggregate every 60 seconds; the API refresh is scheduled, not guaranteed real-time streaming.
+
+Older private-connection instructions below describe an optional alternative and are not prerequisites for this aggregate-only setup.
+
+---
+
+# Tikina analysis, 2026 update
+
+The dashboard now includes 86 Tikina boundaries, the official FBOS 2026 population grid summed by pixel centre, province-level rainfall joined through verified PCODEs, and API aggregates from all five supplied Kobo forms (359 submissions at initial load).
+
+The dedicated Tikina panel filters by province, Tikina, dry conditions and rainwater/borehole evidence. It reports affected-person estimates from latest community-water assessments separately from affected members of surveyed households. Convenience-assessment rates are not extrapolated to the whole Tikina. An optional planning calculator requires explicit user assumptions. Borehole dependence alone does not imply failure. Source repeat counts and unmatched Tikina counts are displayed.
+
+Official population source: https://www.statsfiji.gov.fj/fiji-population-grid-2026/ (total population raster, 100m, EPSG:3460). Boundary source: https://unosat-geodrr.cern.ch/data/rest/services/Hosted/FJI_Admin_HDX/FeatureServer/3 (POPGIS / FBOS / PCRAFI attribution). Grid total 935,285; approximately 921,509 assigned to polygons; approximately 13,776 (1.47%) outside polygons and not reassigned. No independent growth factor is applied. Per-Tikina rounded figures are modelled resident-population estimates, not affected-population counts.
+
+The public build validates a strict aggregate schema before copying `tikina-evidence.json`; no individual responses are published. Private syncing is prepared in the separate Fiji_Elnino_wash_private_data repository and must not run until that repository is private. An optional DASHBOARD_TOKEN secret there enables automatic publication of aggregate JSON only. The site polls the deployed aggregate every 60 seconds; polling does not itself call Kobo or make the source refresh automatic.
+
+API UIDs (resolved from the supplied forms and checked against deployed schema): KII aZvqz7R9zVibkcfbztSBV5; schools a2Ek6rZt53SBubxeKudgE9; households aQ6xpET4Q9r2i6W4WPi7oa; community aAQy4uuxidWA8YE4DGFbhz; HCF arH2TJ9dqQ3skWjiJKkSeM. All allowed the requested API reads without a token during analysis. Local raw downloads remain outside this repository. Only allowlisted, aggregated evidence is published.
+
+---
+
 # Current deployment and privacy status
 
 Verified live: https://mojo97.github.io/Fiji_Elnino_wash_priortiziedlocations/

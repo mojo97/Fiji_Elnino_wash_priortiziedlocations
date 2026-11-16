@@ -1,0 +1,46 @@
+name: Refresh public Tikina aggregates
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '9,24,39,54 * * * *'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test scripts/core.test.mjs scripts/tikina.test.mjs scripts/public-build.test.mjs
+      - name: Read all five APIs and retain Tikina aggregates only
+        env:
+          PUBLIC_SAFE_MODE: 'true'
+          KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
+        run: node scripts/fetch-tikina-evidence.mjs
+      - name: Commit aggregate snapshot only
+        run: |
+          git config user.name 'Fiji Tikina aggregate sync'
+          git config user.email 'wash-sync@users.noreply.github.com'
+          git add docs/data/tikina-evidence.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh aggregate WASH evidence by Tikina'
+            git push
+          fi
+      - run: node scripts/validate.mjs
+      - run: node scripts/build-public.mjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - uses: actions/deploy-pages@v4
+        id: deployment
