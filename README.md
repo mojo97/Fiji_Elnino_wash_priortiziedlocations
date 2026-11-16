@@ -1,3 +1,13 @@
+# Current deployment and privacy status
+
+Verified live: https://mojo97.github.io/Fiji_Elnino_wash_priortiziedlocations/
+
+The repository was observed as **public** after Pages setup. No Kobo responses have been loaded or committed. This repository must therefore hold only public-approved aggregates. The Kobo refresh workflow is hard-blocked when the repository is public, even if ENABLE_KOBO_SYNC is set. To connect private assessments later, use a separate private repository and authenticated team host; do not store response snapshots or tokens in this public repository. The public site build also excludes all response records, field mappings and community baseline matches.
+
+All nine local tests and the public Pages deployment passed. Earlier private-repository setup guidance below applies only to a separate private deployment, not to the current public repository.
+
+---
+
 # Public GitHub Pages deployment
 
 The user approved a **public aggregate dashboard**, with incoming Kobo responses kept private. Repository: https://github.com/mojo97/Fiji_Elnino_wash_priortiziedlocations
@@ -19,7 +29,7 @@ Response-team dashboard for drought preparedness and verification. Buildless HTM
 
 ## Use and publish
 
-1. Store this repository **privately** and invite only the authorised response team. A separate, explicitly filtered public aggregate deployment is now included, following your approval. The repository remains private.
+1. Store this repository **privately** and invite only the authorised response team. A separate, explicitly filtered public aggregate deployment is now included, following your approval. The repository was subsequently observed as public; see the current status above.
 2. For the full response-team dashboard, serve `docs/` behind your organisation's authenticated web host. **A private GitHub repository does not make a normal GitHub Pages site private.** Private Pages publication requires an eligible organisation on GitHub Enterprise Cloud. Confirm private site visibility before enabling Pages. Official guidance: https://docs.github.com/en/enterprise-cloud@latest/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site
 3. Local preview: `python -m http.server 8000 --bind 127.0.0.1 --directory docs`, then visit http://127.0.0.1:8000. Opening index.html directly does not support JSON fetch.
 4. Run `node --test scripts/core.test.mjs` and `node scripts/validate.mjs`.
