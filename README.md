@@ -139,3 +139,7 @@ The 7Nov_Export.xlsx survey contributes 255 household observations collected 8 O
 Household population uses complete age/sex counts when present, otherwise positive recorded female + male household totals. Missing counts remain unknown. Public files contain only Tikina/day aggregates and an import audit; contacts, household identifiers, coordinates and raw workbook rows are excluded.
 
 The map-first view adds selectable priority rankings, indicator layers, pan/zoom, fit results and Tikina evidence panels. It is inspired by the requested WASH Ways map layout and is independently implemented without third-party map tiles. Sixteen automated checks cover scoring, cohort separation, normalization and public-output safety.
+
+## Age and sex pyramid
+
+The selected-Tikina pyramid uses complete household age/sex counts from the live Kobo household API or 7Nov_Export.xlsx, selected separately. Age bands match the form: 0–5, 6–17, 18–59 and 60+. It covers all surveyed residents with complete valid age/sex counts in the evidence window, not only shortage-reporting households. Totals without age bands are excluded. The chart never distributes official 2026 grid population into ages or extrapolates survey proportions. Age counts are suppressed in Tikina/source/day groups with fewer than five complete household breakdowns; coverage and withheld counts are shown. Eighteen automated checks include age normalization, duplicate removal, small-group suppression and source/date selection.

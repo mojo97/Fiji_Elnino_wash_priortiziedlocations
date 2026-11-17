@@ -1,12 +1,12 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-17T01:07:22.704Z",
+  "generatedAt": "2026-11-17T01:22:05.961Z",
   "sources": [
     {
       "id": "kii",
       "name": "Drought WASH key informant interviews",
       "status": "ok",
-      "fetchedAt": "2026-11-17T01:07:21.386Z",
+      "fetchedAt": "2026-11-17T01:22:01.147Z",
       "submissions": 97,
       "retained": 62,
       "duplicatesRemoved": 35,
@@ -25,7 +25,7 @@
       "id": "schools",
       "name": "Water supply in schools",
       "status": "ok",
-      "fetchedAt": "2026-11-17T01:07:21.702Z",
+      "fetchedAt": "2026-11-17T01:22:02.529Z",
       "submissions": 41,
       "retained": 39,
       "duplicatesRemoved": 1,
@@ -44,7 +44,7 @@
       "id": "households",
       "name": "Household drought WASH",
       "status": "ok",
-      "fetchedAt": "2026-11-17T01:07:22.043Z",
+      "fetchedAt": "2026-11-17T01:22:03.580Z",
       "submissions": 72,
       "retained": 71,
       "duplicatesRemoved": 1,
@@ -63,7 +63,7 @@
       "id": "community",
       "name": "Community water sources",
       "status": "ok",
-      "fetchedAt": "2026-11-17T01:07:22.399Z",
+      "fetchedAt": "2026-11-17T01:22:04.919Z",
       "submissions": 108,
       "retained": 68,
       "duplicatesRemoved": 40,
@@ -82,9 +82,9 @@
       "id": "health",
       "name": "Health care facilities",
       "status": "ok",
-      "fetchedAt": "2026-11-17T01:07:22.704Z",
-      "submissions": 44,
-      "retained": 41,
+      "fetchedAt": "2026-11-17T01:22:05.960Z",
+      "submissions": 45,
+      "retained": 42,
       "duplicatesRemoved": 0,
       "issues": {
         "unmatchedTikina": 3,
@@ -101,7 +101,7 @@
       "id": "household_export",
       "name": "Household survey export (7Nov_Export.xlsx)",
       "status": "ok",
-      "fetchedAt": "2026-11-17T00:34:10.473Z",
+      "fetchedAt": "2026-11-17T01:21:34.995Z",
       "submissions": 255,
       "retained": 251,
       "duplicatesRemoved": 4,
@@ -1142,7 +1142,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 11,
-      "householdPopulationCoverage": 5
+      "householdPopulationCoverage": 5,
+      "ageHouseholds": 5,
+      "ageFemale": [
+        2,
+        4,
+        8,
+        1
+      ],
+      "ageMale": [
+        4,
+        4,
+        4,
+        0
+      ],
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -1162,6 +1176,10 @@
       "affectedReportedCoverage": 0,
       "householdMembersAffected": null,
       "householdPopulationCoverage": 0,
+      "ageHouseholds": 4,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": true,
       "householdSuppressed": true
     },
     {
@@ -1181,7 +1199,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 21,
-      "householdPopulationCoverage": 10
+      "householdPopulationCoverage": 10,
+      "ageHouseholds": 9,
+      "ageFemale": [
+        0,
+        7,
+        9,
+        3
+      ],
+      "ageMale": [
+        4,
+        4,
+        7,
+        4
+      ],
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -1200,7 +1232,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 24,
-      "householdPopulationCoverage": 16
+      "householdPopulationCoverage": 16,
+      "ageHouseholds": 16,
+      "ageFemale": [
+        2,
+        3,
+        21,
+        5
+      ],
+      "ageMale": [
+        1,
+        4,
+        20,
+        5
+      ],
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -1219,7 +1265,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 34,
-      "householdPopulationCoverage": 13
+      "householdPopulationCoverage": 13,
+      "ageHouseholds": 13,
+      "ageFemale": [
+        0,
+        2,
+        11,
+        9
+      ],
+      "ageMale": [
+        3,
+        13,
+        15,
+        7
+      ],
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -1238,7 +1298,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 35,
-      "householdPopulationCoverage": 15
+      "householdPopulationCoverage": 15,
+      "ageHouseholds": 15,
+      "ageFemale": [
+        3,
+        12,
+        17,
+        5
+      ],
+      "ageMale": [
+        4,
+        14,
+        20,
+        4
+      ],
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -1257,7 +1331,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 16,
-      "householdPopulationCoverage": 8
+      "householdPopulationCoverage": 8,
+      "ageHouseholds": 8,
+      "ageFemale": [
+        4,
+        8,
+        7,
+        2
+      ],
+      "ageMale": [
+        2,
+        10,
+        6,
+        3
+      ],
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|ba",
@@ -2742,6 +2830,25 @@
       "householdPopulationCoverage": 0
     },
     {
+      "tikinaId": "nadroganavosa|nasigatoka",
+      "sourceId": "health",
+      "type": "health",
+      "observedDate": "2026-11-17",
+      "reports": 1,
+      "rain": 0,
+      "bore": 1,
+      "dependent": 1,
+      "noWater": 0,
+      "reduced": 1,
+      "shortage": 1,
+      "dependentShortage": 1,
+      "unknownSupply": 0,
+      "affectedReported": 0,
+      "affectedReportedCoverage": 0,
+      "householdMembersAffected": 0,
+      "householdPopulationCoverage": 0
+    },
+    {
       "tikinaId": "ba|ba",
       "sourceId": "household_export",
       "type": "household",
@@ -2758,7 +2865,11 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 19,
-      "householdPopulationCoverage": 8
+      "householdPopulationCoverage": 8,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|ba",
@@ -2777,7 +2888,11 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 85,
-      "householdPopulationCoverage": 14
+      "householdPopulationCoverage": 14,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -2796,7 +2911,11 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 88,
-      "householdPopulationCoverage": 26
+      "householdPopulationCoverage": 26,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -2815,7 +2934,11 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 24,
-      "householdPopulationCoverage": 6
+      "householdPopulationCoverage": 6,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -2834,7 +2957,11 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 27,
-      "householdPopulationCoverage": 10
+      "householdPopulationCoverage": 10,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -2853,7 +2980,11 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 33,
-      "householdPopulationCoverage": 11
+      "householdPopulationCoverage": 11,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false
     },
     {
       "tikinaId": "serua|serua",
@@ -2873,6 +3004,10 @@
       "affectedReportedCoverage": 0,
       "householdMembersAffected": null,
       "householdPopulationCoverage": 0,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false,
       "householdSuppressed": true
     },
     {
@@ -2892,7 +3027,11 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 63,
-      "householdPopulationCoverage": 17
+      "householdPopulationCoverage": 17,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -2911,7 +3050,11 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 63,
-      "householdPopulationCoverage": 17
+      "householdPopulationCoverage": 17,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false
     },
     {
       "tikinaId": "cakaudrove|saqani",
@@ -2931,6 +3074,10 @@
       "affectedReportedCoverage": 0,
       "householdMembersAffected": null,
       "householdPopulationCoverage": 0,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false,
       "householdSuppressed": true
     },
     {
@@ -2950,7 +3097,11 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 40,
-      "householdPopulationCoverage": 21
+      "householdPopulationCoverage": 21,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false
     },
     {
       "tikinaId": "tailevu|verata",
@@ -2969,7 +3120,11 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 31,
-      "householdPopulationCoverage": 6
+      "householdPopulationCoverage": 6,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false
     },
     {
       "tikinaId": "naitasiri|matailobau",
@@ -2989,6 +3144,10 @@
       "affectedReportedCoverage": 0,
       "householdMembersAffected": null,
       "householdPopulationCoverage": 0,
+      "ageHouseholds": 0,
+      "ageFemale": null,
+      "ageMale": null,
+      "ageSuppressed": false,
       "householdSuppressed": true
     },
     {
@@ -3008,7 +3167,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 6,
-      "householdPopulationCoverage": 7
+      "householdPopulationCoverage": 7,
+      "ageHouseholds": 7,
+      "ageFemale": [
+        1,
+        2,
+        7,
+        2
+      ],
+      "ageMale": [
+        1,
+        2,
+        11,
+        5
+      ],
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|ba",
@@ -3027,7 +3200,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 0,
-      "householdPopulationCoverage": 9
+      "householdPopulationCoverage": 9,
+      "ageHouseholds": 9,
+      "ageFemale": [
+        1,
+        6,
+        6,
+        4
+      ],
+      "ageMale": [
+        0,
+        8,
+        10,
+        5
+      ],
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -3046,7 +3233,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 53,
-      "householdPopulationCoverage": 22
+      "householdPopulationCoverage": 22,
+      "ageHouseholds": 9,
+      "ageFemale": [
+        0,
+        1,
+        8,
+        3
+      ],
+      "ageMale": [
+        0,
+        2,
+        10,
+        4
+      ],
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -3065,7 +3266,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 0,
-      "householdPopulationCoverage": 14
+      "householdPopulationCoverage": 14,
+      "ageHouseholds": 14,
+      "ageFemale": [
+        0,
+        8,
+        13,
+        7
+      ],
+      "ageMale": [
+        1,
+        8,
+        10,
+        5
+      ],
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -3084,7 +3299,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 3,
-      "householdPopulationCoverage": 20
+      "householdPopulationCoverage": 20,
+      "ageHouseholds": 20,
+      "ageFemale": [
+        0,
+        1,
+        19,
+        9
+      ],
+      "ageMale": [
+        4,
+        6,
+        23,
+        10
+      ],
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -3103,7 +3332,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 17,
-      "householdPopulationCoverage": 30
+      "householdPopulationCoverage": 30,
+      "ageHouseholds": 30,
+      "ageFemale": [
+        8,
+        12,
+        31,
+        10
+      ],
+      "ageMale": [
+        4,
+        15,
+        30,
+        12
+      ],
+      "ageSuppressed": false
     },
     {
       "tikinaId": "ba|tavua",
@@ -3122,7 +3365,21 @@
       "affectedReported": 0,
       "affectedReportedCoverage": 0,
       "householdMembersAffected": 6,
-      "householdPopulationCoverage": 10
+      "householdPopulationCoverage": 10,
+      "ageHouseholds": 10,
+      "ageFemale": [
+        0,
+        2,
+        7,
+        3
+      ],
+      "ageMale": [
+        0,
+        8,
+        9,
+        3
+      ],
+      "ageSuppressed": false
     }
   ],
   "privacy": "Tikina aggregates only; no household identity, names, GPS, facility names or free text. Household-member counts suppressed in Tikina/source/day groups with fewer than five reports. Population measures are separate and must not be added.",

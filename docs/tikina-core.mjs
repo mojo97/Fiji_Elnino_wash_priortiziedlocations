@@ -17,3 +17,9 @@ export function summariseTikinas(geo,evidence,rain,method,now=new Date()){
    schoolReports:sum('reports',fac.filter(g=>g.type==='school')),healthReports:sum('reports',fac.filter(g=>g.type==='health')),facilityShortages:sum('shortage',fac),unknownSupply:sum('unknownSupply'),latestObservation:fresh.length?fresh.map(g=>g.observedDate).sort().at(-1):null};
  });
 }
+export function summariseAgeSex(evidence,tikinaId,sourceId,freshDays,now=new Date()){
+ const groups=evidence.groups.filter(g=>g.tikinaId===tikinaId&&g.sourceId===sourceId&&g.type==='household'&&(now-new Date(g.observedDate))/86400000>=-1&&(now-new Date(g.observedDate))/86400000<=freshDays);
+ const visible=groups.filter(g=>Array.isArray(g.ageFemale)&&Array.isArray(g.ageMale));
+ const sum=k=>groups.reduce((s,g)=>s+(g[k]||0),0);
+ return {reports:sum('reports'),complete:sum('ageHouseholds'),publishedHouseholds:visible.reduce((s,g)=>s+g.ageHouseholds,0),suppressed:groups.filter(g=>g.ageSuppressed).reduce((s,g)=>s+g.ageHouseholds,0),female:[0,1,2,3].map(i=>visible.reduce((s,g)=>s+g.ageFemale[i],0)),male:[0,1,2,3].map(i=>visible.reduce((s,g)=>s+g.ageMale[i],0))};
+}
