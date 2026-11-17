@@ -7,7 +7,7 @@ const one=(r,n)=>values(r,n)[0];
 const num=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v))&&Number(v)>=0?Number(v):null;
 const hash=s=>createHash('sha256').update(s).digest('hex').slice(0,24);
 function choiceLabel(schema,field,value){const q=schema.survey.find(x=>x.name===field),c=schema.choices.find(c=>c.list_name===q?.select_from_list_name&&c.name===value);const label=c?.label;return Array.isArray(label)?label[0]:label||value;}
-export function normalizeResponses(form,raw,schema,tikinas){const out=[],issues={unmatchedTikina:0,invalidDate:0,noStableHousehold:0,invalidPopulation:0,testExcluded:0,noConsent:0};
+export function normalizeResponses(form,raw,schema,tikinas){const out=[],issues={unmatchedTikina:0,invalidDate:0,noStableHousehold:0,invalidPopulation:0,testExcluded:0,noConsent:0,missingPopulation:0,populationFromTotals:0};
  for(const r of raw){if(form.id==='households'&&one(r,'consent')!=='yes'){issues.noConsent++;continue;}
  const prov=choiceLabel(schema,'Province',one(r,'Province')),tik=choiceLabel(schema,'tikina',one(r,'tikina'));const match=tikinas.find(t=>norm(t.province)===norm(prov)&&norm(t.tikina)===norm(tik));
  if(!match){issues.unmatchedTikina++;continue;}
@@ -23,9 +23,9 @@ export function normalizeResponses(form,raw,schema,tikinas){const out=[],issues=
  if(form.id==='community'||form.id==='households'){const supply=one(r,form.id==='community'?'supply_status':'source_supply');if(['none','normal','reduced'].includes(supply)){noWater=supply==='none';reduced=supply==='reduced';}}
  else if(form.id==='kii'){const v=one(r,'q17');if(['zero','d1_2','d3_4','d5_6','daily'].includes(v)){noWater=v==='zero';reduced=!['zero','daily'].includes(v);}}
  else {const v=one(r,'reliability');if(['always','sometimes','unavailable'].includes(v)){noWater=v==='unavailable';reduced=v==='sometimes';}}
- const shortage=noWater===true||reduced===true||(form.id==='households'&&one(r,'enough_all')==='no');let population=null,affected=null;
+ const shortage=noWater===true||reduced===true||(form.id==='households'&&['no','sometimes','never'].includes(one(r,'enough_all')));let population=null,affected=null;
  if(form.id==='community'){population=num(one(r,'community_population'));affected=num(one(r,'people_affected'));if(affected!==null&&population!==null&&affected>population){issues.invalidPopulation++;affected=null;}}
- if(form.id==='households'){const ns=['f_5','f_17','f_59','f_60','m_5','m_17','m_59','m_60'].map(n=>num(one(r,n)));if(ns.every(n=>n!==null))population=ns.reduce((a,b)=>a+b,0);if(population!==null&&population>100){population=null;issues.invalidPopulation++;}affected=shortage?population:0;}
+ if(form.id==='households'){const ns=['f_5','f_17','f_59','f_60','m_5','m_17','m_59','m_60'].map(n=>num(one(r,n)));if(ns.every(n=>n!==null))population=ns.reduce((a,b)=>a+b,0);else{const female=num(one(r,'hh_female')),male=num(one(r,'hh_male'));if(female!==null&&male!==null&&female+male>0){population=female+male;issues.populationFromTotals++;}}if(population!==null&&(population>100||population===0)){population=null;issues.invalidPopulation++;}if(population===null)issues.missingPopulation++;affected=shortage?population:0;}
  out.push({sourceId:form.id,type:form.type,tikinaId:match.id,communityKey,locationName:name,reportedTikina:tik,reportedProvince:prov,entityKey:hash(entity),observedAt:date.toISOString(),dateBasis:r.start?'interview_start':'submission_fallback',rain,bore,noWater,reduced,shortage,population,affected});
  }const latest=new Map();for(const r of out){const old=latest.get(r.entityKey);if(!old||r.observedAt>old.observedAt)latest.set(r.entityKey,r);}return {records:[...latest.values()],issues,duplicatesRemoved:out.length-latest.size};
 }

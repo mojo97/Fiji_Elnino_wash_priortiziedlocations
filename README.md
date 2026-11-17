@@ -131,3 +131,11 @@ Workbook edition dates are not observation dates. Country estimates include mode
 
 The dashboard identifies **reported needs and exposure for verification**, not proven El Niño causation or automatic entitlement. Validate current availability, duration, storage, alternative safe supplies, vulnerable groups, existing support and access with the response team before allocation. Expand rules only when supporting fields are available and definitions have been reviewed. Host access and team membership remain deployment prerequisites.
 
+
+## Additional household survey and hotspot map (17 November 2026)
+
+The 7Nov_Export.xlsx survey contributes 255 household observations collected 8 October–6 November 2026, retaining 251 households after four repeated household keys. The tanks repeat sheet is not counted as households. An initial comparison with 72 API household records found no matching UUIDs or household keys. The imported cohort remains separate from API households: report and person totals are never added across the two cohorts. Both contribute presence-of-need signals to Tikina priority. Use the evidence window to include older observations.
+
+Household population uses complete age/sex counts when present, otherwise positive recorded female + male household totals. Missing counts remain unknown. Public files contain only Tikina/day aggregates and an import audit; contacts, household identifiers, coordinates and raw workbook rows are excluded.
+
+The map-first view adds selectable priority rankings, indicator layers, pan/zoom, fit results and Tikina evidence panels. It is inspired by the requested WASH Ways map layout and is independently implemented without third-party map tiles. Sixteen automated checks cover scoring, cohort separation, normalization and public-output safety.

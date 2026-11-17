@@ -1,5 +1,11 @@
 name: Refresh public Tikina aggregates
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/data/supplemental-households.json'
+      - 'scripts/kobo-analysis.mjs'
+      - 'scripts/fetch-tikina-evidence.mjs'
   workflow_dispatch:
   schedule:
     - cron: '9,24,39,54 * * * *'

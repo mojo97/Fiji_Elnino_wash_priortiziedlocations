@@ -5,3 +5,21 @@ test('population reports deduplicate repeated community sources and omit persona
 test('impossible affected counts and unmatched Tikina are exposed rather than guessed',()=>{const a=normalizeResponses(forms.find(f=>f.id==='community'),[{...r,'g/people_affected':150}],schema,[t]);assert.equal(a.records[0].affected,null);assert.equal(a.issues.invalidPopulation,1);const b=normalizeResponses(forms[0],[{...r,'g/tikina':'unmatched'}],schema,[t]);assert.equal(b.records.length,0);assert.equal(b.issues.unmatchedTikina,1);});
 test('borehole plus dry conditions alone is Watch, verified shortage raises High',()=>{const m={freshDays:30,rainFreshDays:45,rainThreshold:60,rainDeficitWeight:20,rainwaterWeight:25,noWaterWeight:60,boreholeWeight:15,highThreshold:60,mediumThreshold:25,criticalNoWater:true};const evidence={groups:[{tikinaId:t.id,sourceId:'community',type:'community',observedDate:'2026-11-15',reports:1,bore:1,dependent:1,dependentShortage:0}]};const rain=[{PCODE:'FJ201',date:'2026-11-01',r3h:40,r3h_avg:100}];assert.equal(summariseTikinas({rows:[t]},evidence,rain,m,new Date('2026-11-16'))[0].priority,'Watch');evidence.groups[0].dependentShortage=1;evidence.groups[0].shortage=1;assert.equal(summariseTikinas({rows:[t]},evidence,rain,m,new Date('2026-11-16'))[0].priority,'High');});
 test('2026 population never becomes affected population just because it is dry',()=>{const a=summariseTikinas({rows:[t]},{groups:[]},[{PCODE:'FJ201',date:'2026-11-01',r3h:30,r3h_avg:100}],{freshDays:30,rainFreshDays:45,rainThreshold:60,rainDeficitWeight:20},new Date('2026-11-16'))[0];assert.equal(a.reportedAffected,null);assert.equal(a.householdAffected,null);assert.equal(a.priority,'Assessment gap');});
+test('additional household cohort contributes signals without adding its members to API members',()=>{
+ const m={freshDays:30,rainFreshDays:45,rainThreshold:60,rainDeficitWeight:20,rainwaterWeight:25,noWaterWeight:60,boreholeWeight:15,highThreshold:60,mediumThreshold:25,criticalNoWater:true};
+ const base={tikinaId:t.id,type:'household',observedDate:'2026-11-15',reports:5,householdPopulationCoverage:5,householdMembersAffected:20};
+ const e={groups:[{...base,sourceId:'households'},{...base,sourceId:'household_export',householdMembersAffected:30,bore:5,dependent:5,dependentShortage:5,shortage:5}]};
+ const a=summariseTikinas({rows:[t]},e,[{PCODE:'FJ201',date:'2026-11-01',r3h:40,r3h_avg:100}],m,new Date('2026-11-16'))[0];
+ assert.equal(a.householdAffected,20);assert.equal(a.supplementAffected,30);assert.equal(a.householdReports,5);assert.equal(a.supplementReports,5);assert.equal(a.priority,'High');
+ e.groups[1].observedDate='2020-01-01';const b=summariseTikinas({rows:[t]},e,[],m,new Date('2026-11-16'))[0];assert.equal(b.supplementReports,0);assert.equal(b.householdAffected,20);
+});
+test('sometimes and never enough drinking water are shortage signals even with normal source supply',()=>{
+ const form=forms.find(f=>f.id==='households'),hh={...r,'g/household_code':'TEST-1','g/consent':'yes','g/source_now':'borehole','g/source_supply':'normal','g/enough_all':'sometimes'};
+ for(const key of ['f_5','f_17','f_59','f_60','m_5','m_17','m_59','m_60'])hh['g/'+key]=1;
+ const a=normalizeResponses(form,[hh],schema,[t]);assert.equal(a.records[0].shortage,true);assert.equal(a.records[0].affected,8);assert.equal(a.records[0].noWater,false);
+});
+test('older household totals fill missing age breakdowns without treating blank ages as zero',()=>{
+ const form=forms.find(f=>f.id==='households'),hh={...r,'g/household_code':'TEST-2','g/consent':'yes','g/source_now':'rainwater','g/source_supply':'reduced','g/hh_female':3,'g/hh_male':2};
+ const a=normalizeResponses(form,[hh],schema,[t]);assert.equal(a.records[0].population,5);assert.equal(a.records[0].affected,5);assert.equal(a.issues.populationFromTotals,1);
+ delete hh['g/hh_male'];const b=normalizeResponses(form,[hh],schema,[t]);assert.equal(b.records[0].population,null);assert.equal(b.issues.missingPopulation,1);
+});
