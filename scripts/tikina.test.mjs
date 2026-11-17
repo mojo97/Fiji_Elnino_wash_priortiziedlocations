@@ -43,3 +43,20 @@ test('age pyramid respects selected Tikina, source and freshness without combini
  const a=summariseAgeSex(d,t.id,'households',30,new Date('2026-11-17'));assert.deepEqual(a.female,[1,2,3,4]);assert.equal(a.reports,6);assert.equal(a.publishedHouseholds,5);
  const b=summariseAgeSex(d,t.id,'household_export',30,new Date('2026-11-17'));assert.deepEqual(b.female,[20,20,20,20]);
 });
+
+test('combined households replace matching baseline with latest live entry and keep new households',async()=>{
+ const {mergeHouseholds}=await import('./kobo-analysis.mjs');
+ const base={sourceId:'households',type:'household',tikinaId:t.id,entityKey:'A',submissionKey:'uuid-A',observedAt:'2026-11-01',affected:8,ageSex:{female:[1,1,1,1],male:[1,1,1,1]}};
+ const a=mergeHouseholds([base],[{...base,observedAt:'2026-11-16',affected:4},{...base,entityKey:'B',submissionKey:'uuid-B',affected:3}]);assert.equal(a.records.length,2);assert.equal(a.duplicatesRemoved,1);assert.equal(a.records.find(r=>r.entityKey==='A').affected,4);
+ const b=mergeHouseholds([base],[{...base,entityKey:'changed-code',observedAt:'2026-11-15',affected:5}]);assert.equal(b.records.length,1);assert.equal(b.records[0].affected,5);
+ const c=mergeHouseholds([base],[{...base,affected:6}]);assert.equal(c.records[0].affected,6);
+ const older=mergeHouseholds([base],[{...base,observedAt:'2026-10-01',affected:1}]);assert.equal(older.records[0].affected,8);
+ const bridge=mergeHouseholds([base,{...base,entityKey:'B',submissionKey:'uuid-B'}],[{...base,entityKey:'A',submissionKey:'uuid-B',observedAt:'2026-11-16'}]);assert.equal(bridge.records.length,1);
+});
+
+test('static matching baseline fails closed when missing and rejects personal fields',async()=>{
+ const {decodeHouseholdBaseline}=await import('./household-baseline.mjs');const {gzipSync}=await import('node:zlib');
+ assert.throws(()=>decodeHouseholdBaseline('',{rows:[t]}));
+ const seed={version:1,submissions:1,duplicatesRemoved:0,issues:{},records:[{sourceId:'households',type:'household',tikinaId:t.id,entityKey:'a'.repeat(24),submissionKey:null,observedAt:'2026-11-01',rain:true,bore:false,noWater:false,reduced:false,shortage:false,population:4,affected:0,ageSex:null}]};
+ const encode=x=>gzipSync(Buffer.from(JSON.stringify(x))).toString('base64');assert.equal(decodeHouseholdBaseline(encode(seed),{rows:[t]}).records.length,1);seed.records[0].respondent='must-not-be-stored';assert.throws(()=>decodeHouseholdBaseline(encode(seed),{rows:[t]}));
+});

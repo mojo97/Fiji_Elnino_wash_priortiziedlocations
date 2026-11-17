@@ -27,7 +27,7 @@ export function normalizeResponses(form,raw,schema,tikinas){const out=[],issues=
  if(form.id==='community'){population=num(one(r,'community_population'));affected=num(one(r,'people_affected'));if(affected!==null&&population!==null&&affected>population){issues.invalidPopulation++;affected=null;}}
  if(form.id==='households'){const ns=['f_5','f_17','f_59','f_60','m_5','m_17','m_59','m_60'].map(n=>num(one(r,n)));if(ns.every(n=>n!==null))population=ns.reduce((a,b)=>a+b,0);else{const female=num(one(r,'hh_female')),male=num(one(r,'hh_male'));if(female!==null&&male!==null&&female+male>0){population=female+male;issues.populationFromTotals++;}}if(population!==null&&(population>100||population===0)){population=null;issues.invalidPopulation++;}if(population===null)issues.missingPopulation++;affected=shortage?population:0;}
  if(form.id==='households'&&population!==null){const ages=['f_5','f_17','f_59','f_60','m_5','m_17','m_59','m_60'].map(n=>num(one(r,n)));if(ages.every(n=>Number.isInteger(n)))ageSex={female:ages.slice(0,4),male:ages.slice(4)};}
- out.push({sourceId:form.id,type:form.type,tikinaId:match.id,communityKey,locationName:name,reportedTikina:tik,reportedProvince:prov,entityKey:hash(entity),observedAt:date.toISOString(),dateBasis:r.start?'interview_start':'submission_fallback',rain,bore,noWater,reduced,shortage,population,affected,ageSex});
+ out.push({sourceId:form.id,type:form.type,tikinaId:match.id,communityKey,locationName:name,reportedTikina:tik,reportedProvince:prov,entityKey:hash(entity),submissionKey:r._uuid?hash(String(r._uuid).toLowerCase()):null,observedAt:date.toISOString(),dateBasis:r.start?'interview_start':'submission_fallback',rain,bore,noWater,reduced,shortage,population,affected,ageSex});
  }const latest=new Map();for(const r of out){const old=latest.get(r.entityKey);if(!old||r.observedAt>old.observedAt)latest.set(r.entityKey,r);}return {records:[...latest.values()],issues,duplicatesRemoved:out.length-latest.size};
 }
 export function aggregateForPublication(records,sources,now=new Date()){
@@ -41,4 +41,15 @@ export function aggregateForPublication(records,sources,now=new Date()){
  // Only Tikina/source/day aggregates leave private processing; no names, GPS, keys or free text.
  const published=[...groups.values()].map(g=>g.type==='household'&&g.reports<5?{...g,householdMembersAffected:null,householdPopulationCoverage:0,householdSuppressed:true}:g);
  return {schemaVersion:2,generatedAt:now.toISOString(),sources,groups:published,privacy:'Tikina aggregates only; no household identity, names, GPS, facility names or free text. Household-member counts suppressed in Tikina/source/day groups with fewer than five reports. Population measures are separate and must not be added.',interpretation:'Non-probability assessment coverage. Do not extrapolate observed dependency or shortage rates to all Tikina residents. Community affected reports deduplicated by exact canonical community within the community-water form; unreviewed aliases may remain. Household members are a separate surveyed-household measure.'};
+}
+
+// Union matching aliases before choosing latest, so a UUID/key change cannot double count.
+export function mergeHouseholds(baseline,live){
+ const all=[...baseline,...live],parents=all.map((_,i)=>i),aliases=new Map();
+ const find=i=>parents[i]===i?i:parents[i]=find(parents[i]);
+ const union=(a,b)=>{parents[find(a)]=find(b);};
+ all.forEach((r,i)=>{if(r.type!=='household'||r.sourceId!=='households'||!r.entityKey||!Number.isFinite(new Date(r.observedAt).getTime()))throw Error('Invalid household merge record');for(const key of ['entityKey','submissionKey'])if(r[key]){const alias=key+':'+r[key];if(aliases.has(alias))union(i,aliases.get(alias));else aliases.set(alias,i);}});
+ const winners=new Map();all.forEach((r,i)=>{const group=find(i),old=winners.get(group);if(old===undefined||new Date(r.observedAt)>=new Date(all[old].observedAt))winners.set(group,i);});
+ const records=[...winners.values()].map(i=>all[i]);
+ return {records,duplicatesRemoved:all.length-records.length};
 }

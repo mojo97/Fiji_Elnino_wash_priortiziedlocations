@@ -31,6 +31,7 @@ jobs:
       - name: Read all five APIs and retain Tikina aggregates only
         env:
           PUBLIC_SAFE_MODE: 'true'
+          HOUSEHOLD_BASELINE_GZIP: ${{ secrets.HOUSEHOLD_BASELINE_GZIP }}
           KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
         run: node scripts/fetch-tikina-evidence.mjs
       - name: Commit aggregate snapshot only

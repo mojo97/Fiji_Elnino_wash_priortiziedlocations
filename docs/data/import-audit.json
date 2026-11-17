@@ -10,5 +10,5 @@
   "sheet": "Fiji | Household drought WAS...",
   "fileSha256": "025518fa14a84f038f57e0d18a92cf11f4801a6f7190811a3da11a03e435b393",
   "timestampAssumption": "Workbook timestamps have no timezone; interpreted as UTC for aggregation.",
-  "combinationRule": "API and imported household cohorts are reported separately; their person counts are never added. Repeated household keys within each cohort retain the latest observation."
+  "combinationRule": "One household dataset: match exact normalized province/Tikina/community/household keys or submission UUID; retain the latest observation and prefer live Kobo on equal observation dates. New Kobo households are appended. No fuzzy matches are assumed."
 }

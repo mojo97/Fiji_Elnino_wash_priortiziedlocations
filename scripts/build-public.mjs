@@ -6,9 +6,9 @@ await fs.mkdir(new URL('data/',target),{recursive:true});await fs.mkdir(new URL(
 // Refuse a dirty output folder rather than risking a previously copied private snapshot.
 const allowedRoot=new Set(['data','assets','index.html','style.css','app.mjs','core.mjs','tikina.mjs','tikina-core.mjs']);
 for(const n of await fs.readdir(target))if(!allowedRoot.has(n))throw Error(`Unexpected public output entry: ${n}`);
-const jsonFiles=['islands.json','jmp-context.json','methodology.json','provenance.json','rainfall.json','tikinas.json','tikina-evidence.json','supplemental-households.json','import-audit.json'];
+await fs.rm(new URL('data/supplemental-households.json',target),{force:true});
+const jsonFiles=['islands.json','jmp-context.json','methodology.json','provenance.json','rainfall.json','tikinas.json','tikina-evidence.json','import-audit.json'];
 validatePublicAggregate(JSON.parse(await fs.readFile(new URL('data/tikina-evidence.json',source),'utf8')),JSON.parse(await fs.readFile(new URL('data/tikinas.json',source),'utf8')));
-validatePublicAggregate(JSON.parse(await fs.readFile(new URL('data/supplemental-households.json',source),'utf8')),JSON.parse(await fs.readFile(new URL('data/tikinas.json',source),'utf8')));
 for(const n of jsonFiles)await fs.copyFile(new URL('data/'+n,source),new URL('data/'+n,target));
 for(const n of ['style.css','app.mjs','core.mjs','tikina.mjs','tikina-core.mjs'])await fs.copyFile(new URL(n,source),new URL(n,target));
 for(const n of ['communities relying on rainwater or ran out of water.png','communities relying on rainwater or ran out of water_Map.png'])await fs.copyFile(new URL('assets/'+n,source),new URL('assets/'+n,target));
